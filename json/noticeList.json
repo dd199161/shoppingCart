@@ -1,0 +1,31 @@
+{
+  "noticelist": [
+    {
+      "checked": false,
+      "img": "img/201.png",
+      "name": "鼠标",
+      "danprice": 21,
+      "number": 0,
+      "zongprice": 0,
+      "gift": "鼠标垫"
+    },
+    {
+      "checked": false,
+      "img": "img/202.png",
+      "name": "键盘",
+      "danprice": 60,
+      "number": 0,
+      "zongprice": 0,
+      "gift": "鼠标垫，数据线"
+    },
+    {
+      "checked": false,
+      "img": "img/203.png",
+      "name": "U盘",
+      "danprice": 25,
+      "number": 0,
+      "zongprice": 0,
+      "gift": "数据线"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+/** {
+	border: 1px solid darkgray;
+}*/
+/*模块之间 分层70px*/
+.projectname,
+.noticelist {
+    margin-bottom: 70px;
+}
+
+/*商品列表 和 结账 上边距*/
+.noticelist, .settle {
+    border-top: 2px solid crimson;
+}
+
+.notice {
+    border: 2px solid #FFF;
+}
+
+/*鼠标经过图片触发*/
+.notice:hover {
+    border: 2px solid lightcoral;
+}
+
+/*商品数量设置*/
+.inputNum {
+    display: inline-block;
+    width: 50px;
+}
+
+/*商品列表图片高贺和宽*/
+.noticemin {
+    width: 80px;
+    height: 60px;
+}
+
+/*单价字体颜色*/
+.zong_price {
+    color: lightcoral;
+}
+
+/*结账 的字体大小*/
+.accounts {
+    font-size: 2.3em;
+}
+
+/*全选（取消全选）的字体大小*/
+.btnchoose {
+    font-size: 1.5em;
+}
+
+/*结账模块的外边距底部*/
+.settle {
+    margin-bottom: 70px;
+}
+
+/*结账按钮外边距*/
+.btnaccounts {
+    margin-bottom: 1em;
+}

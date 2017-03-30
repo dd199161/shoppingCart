@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>宋先森的购物车</title>
+
+    <!-- Bootstrap -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/shopindex.css"/>
+</head>
+
+<body>
+
+<div id="notice_index" class="container">
+    <div class="row clearfix projectname">
+        <!--项目名字-->
+        <div class="col-md-12 column">
+            <h1 class="text-center">
+                bootstrap+vue.js 购物车项目
+            </h1>
+        </div>
+    </div>
+    <!--商品图片表-->
+    <div class="row clearfix noticelist">
+        <!--选择商品-->
+        <div class="col-md-12 column">
+            <h4 class="text-left">
+                单击选择您要购买的商品：
+            </h4>
+        </div>
+
+        <div class="col-md-4 column text-center" v-for="itemImg in noticeList">
+            <img :alt="itemImg.name" v-bind:src="itemImg.img" v-on:click="selectnotice(itemImg,1)"
+                 class="img-rounded notice"/>
+        </div>
+    </div>
+    <!--商品列表-->
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        商品信息
+                    </th>
+                    <th>
+                        商品单价
+                    </th>
+                    <th>
+                        商品数量
+                    </th>
+                    <th>
+                        总金额
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) in noticeList" v-if="item.checked">
+                    <td>
+                        {{index+1}}
+                    </td>
+                    <td>
+                        <span>
+                            <img alt="item.name" v-bind:src="item.img" class="img-rounded noticemin"/>
+                        </span>
+                        <span>
+                            <strong>{{item.name}}</strong>
+                            <p>赠品：</p>{{item.gift}}
+                        </span>
+                    </td>
+                    <td>
+                        {{item.danprice|formatMoney}}
+                    </td>
+                    <td>
+                        <button v-on:click="changeMoney(item,-1)"><strong>-</strong></button>
+                        <input type="text" class="form-control inputNum" disabled="disabled" value="0"
+                               v-model="item.number"/>
+                        <button v-on:click="changeMoney(item,1)"><strong>+</strong></button>
+                    </td>
+                    <td class="zong_price">
+                        {{item.zongprice=item.danprice*item.number|formatMoney}}
+                    </td>
+                    <td>
+                        <a id="modal-418866" href="#modal-container-418866" role="button" class="btn"
+                           data-toggle="modal" v-on:click="delconfirm(item)">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--结账模块-->
+            <div class="row clearfix settle">
+                <div class="col-sm-6 column">
+                    <a href="#" role="button" class="btn btnchoose" @click="selectall(1)">全选</a>
+                    <a href="#" role="button" class="btn btnchoose" @click="selectall(-1)">取消全选</a>
+                </div>
+                <div class="col-sm-6 column text-center">
+                    <span class="accounts">结账：</span>
+                    <button type="button" class="btn btn-danger btn-lg btnaccounts">
+                        {{total_price|formatMoney}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除弹出 拟态窗-->
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="modal fade" id="modal-container-418866" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                您要删除商品吗？
+                            </h4>
+                        </div>
+                        <div class="modal-body text-center">
+                            您要删除商品吗？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    v-on:click="selectnotice(delitem,-1)">删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--vue.js-->
+<script src="//cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script src="//cdn.bootcss.com/vue-resource/1.2.1/vue-resource.min.js"></script>
+<script src="js/shopindex.js"></script>
+</body>
+
+</html>
