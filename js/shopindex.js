@@ -53,6 +53,7 @@ new Vue({
         //商品是否要 全选中
         selectall: function (way) {
             this.noticeList.forEach(item => {
+                //IE浏览器 可能不支持箭头函数把 item=>改成function(item)就好。
                 if (way > 0) {
                     item.checked = true;
                 } else {
@@ -69,6 +70,7 @@ new Vue({
     computed: {
         //结账 总金额的实时计算
         totalPrice: function () {
+             //IE浏览器 可能不支持箭头函数把 item=>改成function(item)就好。再加上 _this=this。
             this.total_price = 0;
             this.noticeList.forEach(item => {
                 if (item.checked == true) {
